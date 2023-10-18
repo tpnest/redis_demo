@@ -2,7 +2,7 @@
 
 public class FileLoggerService : ILoggerService
 {
-    private static FileLoggerService? _instance = null;
+    private static FileLoggerService _instance = null;
 
     private static readonly object SyncObj = new();
 
@@ -10,7 +10,7 @@ public class FileLoggerService : ILoggerService
     /// 单例对象
     /// </summary>
     /// <returns></returns>
-    public static FileLoggerService? Instance
+    public static FileLoggerService Instance
     {
         get
         {
@@ -27,7 +27,7 @@ public class FileLoggerService : ILoggerService
     }
 
     //private readonly string _path = Path.Combine(Environment.CurrentDirectory, @"\Log\");
-    private readonly string _path =Environment.CurrentDirectory + @"\Log\";
+    private readonly string _path = Environment.CurrentDirectory + @"\Log\";
 
 
     public void Info()

@@ -39,7 +39,7 @@ public class WeatherForecastController : ControllerBase
 
         var total = list.Length;
 
-        throw new BusinessException("测试测试");
+        //throw new BusinessException("测试测试");
         return ResultTool.Success(list,total);
     }
 }

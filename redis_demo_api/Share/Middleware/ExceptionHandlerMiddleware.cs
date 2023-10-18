@@ -7,11 +7,9 @@ namespace redis_demo_api.Share.Middleware;
 public class ExceptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly ILoggerService _logger;
-    public ExceptionHandlerMiddleware(RequestDelegate next, ILoggerService logger)
+    public ExceptionHandlerMiddleware(RequestDelegate next)
     {
         _next = next;
-        _logger = logger;
     }
 
     public async Task Invoke(HttpContext context)
@@ -37,14 +35,15 @@ public class ExceptionHandlerMiddleware
         {
             result = ResultTool.Fail(businessException.ErrorCode,
                 businessException.Message);
-            _logger.Info(businessException);
+            FileLoggerService.Instance.Info(exception);
+
         }
         else
         {
             // 其他未处理异常
             result = ResultTool.Fail(ResultCode.Fail, "系统异常！");
-            // 记录日志
-            _logger.Error(exception);
+
+            FileLoggerService.Instance.Error(exception);
         }
 
         return context.Response.WriteAsJsonAsync(result);

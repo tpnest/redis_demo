@@ -22,8 +22,6 @@ builder.Services.AddSession(opt =>
     
 });
 
-builder.Services.AddSingleton<ILoggerService, FileLoggerService>();
-
 var app = builder.Build();
 
 // 异常捕获中间件
