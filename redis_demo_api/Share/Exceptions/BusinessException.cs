@@ -1,6 +1,4 @@
-﻿using redis_demo_api.Share;
-
-namespace redis_demo_api.Exceptions;
+﻿namespace redis_demo_api.Share.Exceptions;
 
 public class BusinessException : Exception
 {
@@ -10,10 +8,9 @@ public class BusinessException : Exception
     {
         ErrorCode = ResultCode.Fail;
     }
-    
+
     public BusinessException(ResultCode errorCode, string message) : base(message)
     {
         ErrorCode = errorCode;
     }
-    
 }

@@ -1,5 +1,6 @@
 
 
+using redis_demo_api.Services;
 using redis_demo_api.Share.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,18 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDistributedMemoryCache();
+// Session
+builder.Services.AddSession(opt =>
+{
+    opt.IdleTimeout = TimeSpan.FromMinutes(20);
+    opt.Cookie.HttpOnly = true;
+    
+});
+
+builder.Services.AddSingleton<ILoggerService, FileLoggerService>();
 
 var app = builder.Build();
 
@@ -26,6 +39,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllers();
 
